@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Rx/MVP Flickr</string>
+    <string name="photo_content_description">Image view holding photo from Flickr API.</string>
+</resources>
