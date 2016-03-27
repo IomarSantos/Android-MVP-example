@@ -104,6 +104,7 @@ public class FlickrActivity extends AppCompatActivity implements FlickrView {
         public PhotoHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
 
         public void bindPhoto(Photo photo) {
