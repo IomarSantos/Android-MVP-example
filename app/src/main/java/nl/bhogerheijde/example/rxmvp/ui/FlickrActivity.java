@@ -1,4 +1,4 @@
-package nl.bhogerheijde.example.rxmvp.activity;
+package nl.bhogerheijde.example.rxmvp.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -14,18 +14,20 @@ import android.widget.ProgressBar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import dagger.ObjectGraph;
+import nl.bhogerheijde.example.rxmvp.App;
 import nl.bhogerheijde.example.rxmvp.R;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
-import nl.bhogerheijde.example.rxmvp.presenter.FlickrPresenter;
-import nl.bhogerheijde.example.rxmvp.presenter.FlickrPresenterImpl;
-import nl.bhogerheijde.example.rxmvp.view.FlickrView;
 
 /**
- * Flickr app built with RxJava and MVP pattern, file created on 26/03/16.
+ * Flickr app built with RxJava, Dagger and MVP pattern.
  *
  * @author Boyd Hogerheijde
  */
@@ -37,8 +39,11 @@ public class FlickrActivity extends AppCompatActivity implements FlickrView {
     @Bind(R.id.photo_recycler)
     RecyclerView photoRecycler;
 
+    @Inject
+    FlickrPresenter presenter;
+
     private PhotoAdapter photoAdapter;
-    private FlickrPresenter presenter;
+    private ObjectGraph activityGraph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,24 +51,19 @@ public class FlickrActivity extends AppCompatActivity implements FlickrView {
         setContentView(R.layout.activity_photo);
         ButterKnife.bind(this);
 
-        presenter = new FlickrPresenterImpl(this);
+        activityGraph = ((App) getApplication()).createScopedGraph(getModules().toArray());
+        activityGraph.inject(this);
 
         photoAdapter = new PhotoAdapter();
 
         photoRecycler.setLayoutManager(new GridLayoutManager(this, 3));
         photoRecycler.setAdapter(photoAdapter);
+
+        presenter.start();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.onResume();
-    }
-
-    @Override
-    public void setPhotos(List<Photo> photos) {
-        photoAdapter.setPhotos(photos);
-        photoAdapter.notifyDataSetChanged();
+    public List<Object> getModules() {
+        return Arrays.asList(new FlickrModule(this));
     }
 
     @Override
@@ -73,25 +73,32 @@ public class FlickrActivity extends AppCompatActivity implements FlickrView {
     }
 
     @Override
-    public void hideProgress() {
-        photoRecycler.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.INVISIBLE);
+    public void setPhotos(List<Photo> photos) {
+        photoAdapter.setPhotos(photos);
+        photoAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showError(Throwable e) {
         new AlertDialog.Builder(this)
                 .setTitle("Error!")
-                .setMessage("An error occurred while trying to fetch photos of of Flickr.")
+                .setMessage(e.getMessage())
                 .setPositiveButton(android.R.string.ok, null)
                 .create()
                 .show();
     }
 
     @Override
+    public void hideProgress() {
+        photoRecycler.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
+        presenter.finish();
+        activityGraph = null;
     }
 
     class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

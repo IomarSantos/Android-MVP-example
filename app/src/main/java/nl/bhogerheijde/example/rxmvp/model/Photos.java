@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Flickr app built with RxJava and MVP pattern, file created on 26/03/16.
+ * Flickr app built with RxJava, Dagger and MVP pattern.
  *
  * @author Boyd Hogerheijde
  */
