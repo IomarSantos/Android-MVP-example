@@ -7,10 +7,9 @@ import dagger.Provides;
 import nl.bhogerheijde.example.rxmvp.storage.StorageModule;
 
 /**
- * Beacon Scanner, file created on 28/03/16.
+ * Flickr app built with RxJava, Dagger and MVP pattern.
  *
  * @author Boyd Hogerheijde
- * @author Mitchell de Vries
  */
 @Module(
         injects = App.class,
@@ -18,9 +17,9 @@ import nl.bhogerheijde.example.rxmvp.storage.StorageModule;
 )
 public class AppModule {
 
-    private Application app;
+    private App app;
 
-    public AppModule(Application app) {
+    public AppModule(App app) {
         this.app = app;
     }
 

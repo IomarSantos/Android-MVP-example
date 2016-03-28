@@ -10,10 +10,9 @@ import javax.inject.Inject;
 import dagger.ObjectGraph;
 
 /**
- * Beacon Scanner, file created on 28/03/16.
+ * Flickr app built with RxJava, Dagger and MVP pattern.
  *
  * @author Boyd Hogerheijde
- * @author Mitchell de Vries
  */
 public class App extends Application {
 
