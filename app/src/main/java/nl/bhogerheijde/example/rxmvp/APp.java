@@ -8,17 +8,17 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.ObjectGraph;
-import nl.bhogerheijde.example.rxmvp.domain.AnalyticsManager;
 
 /**
- * Flickr app built with RxJava, Dagger and MVP pattern.
+ * Beacon Scanner, file created on 28/03/16.
  *
  * @author Boyd Hogerheijde
+ * @author Mitchell de Vries
  */
 public class App extends Application {
 
     @Inject
-    AnalyticsManager analyticsManager;
+    Application application;
 
     private ObjectGraph objectGraph;
 
@@ -27,10 +27,9 @@ public class App extends Application {
         super.onCreate();
         objectGraph = ObjectGraph.create(getModules().toArray());
         objectGraph.inject(this);
-        analyticsManager.registerAppEnter();
     }
 
-    public List<Object> getModules() {
+    private List<Object> getModules() {
         return Arrays.asList(new AppModule(this));
     }
 

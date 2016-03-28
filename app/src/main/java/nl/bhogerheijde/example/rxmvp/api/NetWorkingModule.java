@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module(
         library = true
 )
-public class NetModule {
+public class NetWorkingModule {
 
     private static final String BASE_URL = "https://api.flickr.com/";
 

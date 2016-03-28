@@ -4,31 +4,29 @@ import android.app.Application;
 
 import dagger.Module;
 import dagger.Provides;
-import nl.bhogerheijde.example.rxmvp.domain.DomainModule;
+import nl.bhogerheijde.example.rxmvp.storage.StorageModule;
 
 /**
- * Flickr app built with RxJava, Dagger and MVP pattern.
+ * Beacon Scanner, file created on 28/03/16.
  *
  * @author Boyd Hogerheijde
+ * @author Mitchell de Vries
  */
 @Module(
-        injects = {
-                App.class
-        },
-        includes = {
-                DomainModule.class
-        }
+        injects = App.class,
+        includes = StorageModule.class
 )
 public class AppModule {
 
-    private App app;
+    private Application app;
 
-    public AppModule(App app) {
+    public AppModule(Application app) {
         this.app = app;
     }
 
     @Provides
-    public Application provideApplication() {
+    public Application provideApplicationContext() {
         return app;
     }
+
 }

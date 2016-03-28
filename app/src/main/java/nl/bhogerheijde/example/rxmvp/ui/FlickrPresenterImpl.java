@@ -1,5 +1,8 @@
 package nl.bhogerheijde.example.rxmvp.ui;
 
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import java.util.List;
 
 import nl.bhogerheijde.example.rxmvp.api.FlickrApi;
@@ -18,15 +21,18 @@ import rx.schedulers.Schedulers;
  */
 public class FlickrPresenterImpl implements FlickrPresenter {
 
+    private static final String TAG = "FlickrPresenterImpl";
     private static final String API_KEY = "e74912fa141cc1590d63e7642ab174ed";
 
     private FlickrApi api;
     private FlickrView view;
     private Subscription subscription;
+    private SharedPreferences preferences;
 
-    public FlickrPresenterImpl(FlickrApi api, FlickrView view) {
+    public FlickrPresenterImpl(FlickrApi api, FlickrView view, SharedPreferences preferences) {
         this.api = api;
         this.view = view;
+        this.preferences = preferences;
     }
 
     @Override
@@ -43,6 +49,9 @@ public class FlickrPresenterImpl implements FlickrPresenter {
     @Override
     public void onPhotoClicked(Photo photo) {
         // do something with photo.
+        // Testing injected prefs
+        preferences.edit().putString("TEST", photo.getUrlSmall()).apply();
+        Log.d(TAG, "onPhotoClicked: " + preferences.getString("TEST", "PHOTO"));
     }
 
     private Observable<Flickr> getObservable() {
