@@ -4,7 +4,6 @@ import android.app.Application;
 
 import dagger.Module;
 import dagger.Provides;
-import nl.bhogerheijde.example.rxmvp.api.NetModule;
 import nl.bhogerheijde.example.rxmvp.domain.DomainModule;
 
 /**
@@ -17,8 +16,7 @@ import nl.bhogerheijde.example.rxmvp.domain.DomainModule;
                 App.class
         },
         includes = {
-                DomainModule.class,
-                NetModule.class
+                DomainModule.class
         }
 )
 public class AppModule {
