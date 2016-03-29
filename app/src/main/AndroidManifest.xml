@@ -26,7 +26,8 @@
         <activity
             android:name=".ui.photo.PhotoActivity"
             android:parentActivityName=".ui.photogallery.PhotoGalleryActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/PhotoTheme"/>
 
     </application>
 

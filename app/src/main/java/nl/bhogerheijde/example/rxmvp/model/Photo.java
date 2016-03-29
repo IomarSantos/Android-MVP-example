@@ -23,6 +23,10 @@ public class Photo implements Serializable {
     @SerializedName(value = "url_k")
     private String urlLarge;
 
+    public String getTitle() {
+        return title;
+    }
+
     public String getUrlSmall() {
         return urlSmall;
     }

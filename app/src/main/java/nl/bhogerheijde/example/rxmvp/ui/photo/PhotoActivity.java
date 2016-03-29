@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
@@ -29,6 +31,9 @@ import nl.bhogerheijde.example.rxmvp.ui.BaseActivity;
 public class PhotoActivity extends BaseActivity implements PhotoView {
 
     private static final String EXTRA_PHOTO = "nl.bhogerheijde.example.rxmvp.extra_photo";
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Bind(R.id.photo_image_view)
     ImageView photoImageView;
@@ -55,7 +60,14 @@ public class PhotoActivity extends BaseActivity implements PhotoView {
 
         photo = (Photo) getIntent().getSerializableExtra(EXTRA_PHOTO);
 
+        setActionBar();
+
         presenter.loadImage(photo);
+    }
+
+    private void setActionBar() {
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

@@ -16,9 +16,6 @@ import dagger.ObjectGraph;
  */
 public class App extends Application {
 
-    @Inject
-    Application application;
-
     private ObjectGraph objectGraph;
 
     @Override
@@ -26,10 +23,6 @@ public class App extends Application {
         super.onCreate();
         objectGraph = ObjectGraph.create(getModules().toArray());
         objectGraph.inject(this);
-    }
-
-    public Application getApplication() {
-        return application;
     }
 
     private List<Object> getModules() {
