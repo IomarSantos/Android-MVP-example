@@ -4,7 +4,7 @@ import android.app.Application;
 
 import dagger.Module;
 import dagger.Provides;
-import nl.bhogerheijde.example.rxmvp.api.NetWorkingModule;
+import nl.bhogerheijde.example.rxmvp.network.NetWorkingModule;
 import nl.bhogerheijde.example.rxmvp.interactor.InteractorModule;
 
 /**

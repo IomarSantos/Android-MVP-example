@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">Rx/Dagger/Retro/MVP Sample</string>
+    <string name="app_name">Photo Gallery</string>
     <string name="photo_content_description">Image view holding photo from Flickr API.</string>
+    <string name="menu_item_refresh">Refresh</string>
 </resources>

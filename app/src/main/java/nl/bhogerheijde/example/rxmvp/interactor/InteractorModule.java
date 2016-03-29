@@ -4,7 +4,7 @@ import com.squareup.picasso.Picasso;
 
 import dagger.Module;
 import dagger.Provides;
-import nl.bhogerheijde.example.rxmvp.api.FlickrApi;
+import nl.bhogerheijde.example.rxmvp.network.FlickrApi;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
@@ -18,8 +18,8 @@ import nl.bhogerheijde.example.rxmvp.api.FlickrApi;
 public class InteractorModule {
 
     @Provides
-    public FetchPhotosInteractor provideFetchPhotosInteractor(FlickrApi api) {
-        return new FetchPhotosInteractorImpl(api);
+    public FetchFlickrInteractor provideFetchPhotosInteractor(FlickrApi api) {
+        return new FetchFlickrInteractorImpl(api);
     }
 
     @Provides

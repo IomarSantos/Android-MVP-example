@@ -1,4 +1,4 @@
-package nl.bhogerheijde.example.rxmvp.api;
+package nl.bhogerheijde.example.rxmvp.network;
 
 import nl.bhogerheijde.example.rxmvp.model.Flickr;
 import retrofit2.http.GET;

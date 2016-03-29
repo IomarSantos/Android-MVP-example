@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.photogallery.PhotoGalleryActivity">
+        <activity
+            android:name=".ui.photogallery.PhotoGalleryActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -23,7 +25,8 @@
 
         <activity
             android:name=".ui.photo.PhotoActivity"
-            android:parentActivityName=".ui.photogallery.PhotoGalleryActivity"/>
+            android:parentActivityName=".ui.photogallery.PhotoGalleryActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 

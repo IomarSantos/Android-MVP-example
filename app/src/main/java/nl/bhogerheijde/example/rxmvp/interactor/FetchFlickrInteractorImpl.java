@@ -2,10 +2,10 @@ package nl.bhogerheijde.example.rxmvp.interactor;
 
 import java.util.List;
 
-import nl.bhogerheijde.example.rxmvp.api.FlickrApi;
+import nl.bhogerheijde.example.rxmvp.network.FlickrApi;
 import nl.bhogerheijde.example.rxmvp.model.Flickr;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
-import nl.bhogerheijde.example.rxmvp.ui.photogallery.OnFetchPhotosListener;
+import nl.bhogerheijde.example.rxmvp.ui.photogallery.OnFetchFlickrListener;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -15,19 +15,19 @@ import rx.schedulers.Schedulers;
  *
  * @author Boyd Hogerheijde
  */
-public class FetchPhotosInteractorImpl implements FetchPhotosInteractor {
+public class FetchFlickrInteractorImpl implements FetchFlickrInteractor {
 
     private static final String API_KEY = "e74912fa141cc1590d63e7642ab174ed";
 
     private FlickrApi api;
 
-    public FetchPhotosInteractorImpl(FlickrApi api) {
+    public FetchFlickrInteractorImpl(FlickrApi api) {
         this.api = api;
     }
 
     @Override
-    public void fetchFlickr(OnFetchPhotosListener listener) {
-        listener.onFetchPhotos(getObservable());
+    public void fetchFlickr(OnFetchFlickrListener listener) {
+        listener.onFetchFlickr(getObservable());
     }
 
     private Observable<List<Photo>> getObservable() {

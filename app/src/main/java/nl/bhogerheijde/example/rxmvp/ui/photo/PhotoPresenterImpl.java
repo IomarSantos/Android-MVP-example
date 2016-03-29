@@ -13,7 +13,7 @@ import rx.Subscriber;
  *
  * @author Boyd Hogerheijde
  */
-public class PhotoPresenterImpl implements PhotoPresenter, OnDownloadListener {
+public class PhotoPresenterImpl implements PhotoPresenter, OnLoadPhotoListener {
 
     private PhotoView view;
     private LoadPhotoInteractor interactor;
@@ -30,7 +30,7 @@ public class PhotoPresenterImpl implements PhotoPresenter, OnDownloadListener {
     }
 
     @Override
-    public void onDownloadImage(Observable<Bitmap> bitmapObservable) {
+    public void onLoadPhoto(Observable<Bitmap> bitmapObservable) {
         bitmapObservable.subscribe(getSubscriber());
     }
 

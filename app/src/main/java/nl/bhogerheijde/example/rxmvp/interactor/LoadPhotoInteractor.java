@@ -1,6 +1,6 @@
 package nl.bhogerheijde.example.rxmvp.interactor;
 
-import nl.bhogerheijde.example.rxmvp.ui.photo.OnDownloadListener;
+import nl.bhogerheijde.example.rxmvp.ui.photo.OnLoadPhotoListener;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
@@ -9,6 +9,6 @@ import nl.bhogerheijde.example.rxmvp.ui.photo.OnDownloadListener;
  */
 public interface LoadPhotoInteractor {
 
-    void loadPhoto(String url, OnDownloadListener listener);
+    void loadPhoto(String url, OnLoadPhotoListener listener);
 
 }

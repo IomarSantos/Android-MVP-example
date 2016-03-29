@@ -9,8 +9,8 @@ import rx.Observable;
  *
  * @author Boyd Hogerheijde
  */
-public interface OnDownloadListener {
+public interface OnLoadPhotoListener {
 
-    void onDownloadImage(Observable<Bitmap> bitmapObservable);
+    void onLoadPhoto(Observable<Bitmap> bitmapObservable);
 
 }

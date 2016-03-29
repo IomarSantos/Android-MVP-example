@@ -2,7 +2,7 @@ package nl.bhogerheijde.example.rxmvp.ui.photogallery;
 
 import java.util.List;
 
-import nl.bhogerheijde.example.rxmvp.interactor.FetchPhotosInteractor;
+import nl.bhogerheijde.example.rxmvp.interactor.FetchFlickrInteractor;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
 import rx.Observable;
 import rx.Subscriber;
@@ -12,12 +12,12 @@ import rx.Subscriber;
  *
  * @author Boyd Hogerheijde
  */
-public class PhotoGalleryPresenterImpl implements PhotoGalleryPresenter, OnFetchPhotosListener {
+public class PhotoGalleryPresenterImpl implements PhotoGalleryPresenter, OnFetchFlickrListener {
 
     private PhotoGalleryView view;
-    private FetchPhotosInteractor interactor;
+    private FetchFlickrInteractor interactor;
 
-    public PhotoGalleryPresenterImpl(PhotoGalleryView view, FetchPhotosInteractor interactor) {
+    public PhotoGalleryPresenterImpl(PhotoGalleryView view, FetchFlickrInteractor interactor) {
         this.view = view;
         this.interactor = interactor;
     }
@@ -34,7 +34,7 @@ public class PhotoGalleryPresenterImpl implements PhotoGalleryPresenter, OnFetch
     }
 
     @Override
-    public void onFetchPhotos(Observable<List<Photo>> flickrObservable) {
+    public void onFetchFlickr(Observable<List<Photo>> flickrObservable) {
         flickrObservable.subscribe(getSubscriber());
     }
 

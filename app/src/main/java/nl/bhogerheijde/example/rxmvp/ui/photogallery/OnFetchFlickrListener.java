@@ -6,13 +6,12 @@ import nl.bhogerheijde.example.rxmvp.model.Photo;
 import rx.Observable;
 
 /**
- * Beacon Scanner, file created on 29/03/16.
+ * Flickr app built with RxJava, Dagger and MVP pattern.
  *
  * @author Boyd Hogerheijde
- * @author Mitchell de Vries
  */
-public interface OnFetchPhotosListener {
+public interface OnFetchFlickrListener {
 
-    void onFetchPhotos(Observable<List<Photo>> flickrObservable);
+    void onFetchFlickr(Observable<List<Photo>> flickrObservable);
 
 }

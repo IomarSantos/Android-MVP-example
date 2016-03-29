@@ -1,4 +1,4 @@
-package nl.bhogerheijde.example.rxmvp.api;
+package nl.bhogerheijde.example.rxmvp.network;
 
 import android.app.Application;
 
