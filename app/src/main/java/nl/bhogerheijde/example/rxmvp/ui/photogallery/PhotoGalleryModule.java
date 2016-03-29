@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import nl.bhogerheijde.example.rxmvp.AppModule;
-import nl.bhogerheijde.example.rxmvp.api.FlickrApi;
+import nl.bhogerheijde.example.rxmvp.interactor.FetchPhotosInteractor;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
@@ -32,7 +32,7 @@ public class PhotoGalleryModule {
 
     @Provides
     @Singleton
-    public PhotoGalleryPresenter providePresenter(FlickrApi api, PhotoGalleryView view) {
-        return new PhotoGalleryPresenterImpl(api, view);
+    public PhotoGalleryPresenter providePresenter(PhotoGalleryView view, FetchPhotosInteractor interactor) {
+        return new PhotoGalleryPresenterImpl(view, interactor);
     }
 }
