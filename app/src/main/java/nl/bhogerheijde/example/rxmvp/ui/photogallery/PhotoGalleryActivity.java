@@ -19,7 +19,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.bhogerheijde.example.rxmvp.R;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
-import nl.bhogerheijde.example.rxmvp.ui.common.BaseActivity;
+import nl.bhogerheijde.example.rxmvp.ui.BaseActivity;
 import nl.bhogerheijde.example.rxmvp.ui.photo.PhotoActivity;
 
 /**

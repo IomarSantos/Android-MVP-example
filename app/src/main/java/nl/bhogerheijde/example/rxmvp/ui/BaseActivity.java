@@ -1,4 +1,4 @@
-package nl.bhogerheijde.example.rxmvp.ui.common;
+package nl.bhogerheijde.example.rxmvp.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
