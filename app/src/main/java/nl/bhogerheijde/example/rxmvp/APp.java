@@ -28,6 +28,10 @@ public class App extends Application {
         objectGraph.inject(this);
     }
 
+    public Application getApplication() {
+        return application;
+    }
+
     private List<Object> getModules() {
         return Arrays.asList(new AppModule(this));
     }

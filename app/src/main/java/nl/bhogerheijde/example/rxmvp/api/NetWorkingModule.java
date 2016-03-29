@@ -1,5 +1,9 @@
 package nl.bhogerheijde.example.rxmvp.api;
 
+import android.app.Application;
+
+import com.squareup.picasso.Picasso;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -14,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author Boyd Hogerheijde
  */
 @Module(
+        complete = false,
         library = true
 )
 public class NetWorkingModule {
@@ -29,5 +34,11 @@ public class NetWorkingModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(FlickrApi.class);
+    }
+
+    @Provides
+    @Singleton
+    public Picasso providePicasso(Application app) {
+        return Picasso.with(app);
     }
 }

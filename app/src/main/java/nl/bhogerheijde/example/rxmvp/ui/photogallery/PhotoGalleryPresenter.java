@@ -1,4 +1,4 @@
-package nl.bhogerheijde.example.rxmvp.ui;
+package nl.bhogerheijde.example.rxmvp.ui.photogallery;
 
 import nl.bhogerheijde.example.rxmvp.model.Photo;
 
@@ -7,11 +7,9 @@ import nl.bhogerheijde.example.rxmvp.model.Photo;
  *
  * @author Boyd Hogerheijde
  */
-public interface FlickrPresenter {
+public interface PhotoGalleryPresenter {
 
-    void start();
-
-    void finish();
+    void loadImages();
 
     void onPhotoClicked(Photo photo);
 

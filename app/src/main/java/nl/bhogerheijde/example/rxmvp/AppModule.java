@@ -4,7 +4,8 @@ import android.app.Application;
 
 import dagger.Module;
 import dagger.Provides;
-import nl.bhogerheijde.example.rxmvp.storage.StorageModule;
+import nl.bhogerheijde.example.rxmvp.api.NetWorkingModule;
+import nl.bhogerheijde.example.rxmvp.interactor.InteractorModule;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
@@ -13,7 +14,10 @@ import nl.bhogerheijde.example.rxmvp.storage.StorageModule;
  */
 @Module(
         injects = App.class,
-        includes = StorageModule.class
+        includes = {
+                InteractorModule.class,
+                NetWorkingModule.class
+        }
 )
 public class AppModule {
 

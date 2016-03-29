@@ -13,13 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.FlickrActivity">
+        <activity android:name=".ui.photogallery.PhotoGalleryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.photo.PhotoActivity"
+            android:parentActivityName=".ui.photogallery.PhotoGalleryActivity"/>
 
     </application>
 
