@@ -4,11 +4,11 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import nl.bhogerheijde.example.rxmvp.interactor.DefaultSubscriber;
 import nl.bhogerheijde.example.rxmvp.interactor.Interactor;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
 import nl.bhogerheijde.example.rxmvp.view.PhotoGalleryView;
 import nl.bhogerheijde.example.rxmvp.view.View;
-import rx.Subscriber;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
@@ -26,7 +26,7 @@ public class PhotoGalleryPresenterImpl implements PhotoGalleryPresenter {
 
     @Override
     public void loadImages() {
-        interactor.execute(getSubscriber());
+        interactor.execute(new PhotoGallerySubscriber());
     }
 
     @Override
@@ -44,29 +44,30 @@ public class PhotoGalleryPresenterImpl implements PhotoGalleryPresenter {
         view.openPhoto(photo);
     }
 
-    private Subscriber<List<Photo>> getSubscriber() {
-        return new Subscriber<List<Photo>>() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                view.showProgress();
-            }
+    private final class PhotoGallerySubscriber extends DefaultSubscriber<List<Photo>> {
 
-            @Override
-            public void onCompleted() {
-                view.hideProgress();
-            }
+        @Override
+        public void onStart() {
+            view.showProgress();
+        }
 
-            @Override
-            public void onError(Throwable e) {
-                view.hideProgress();
-                view.showError(e.getMessage());
-            }
+        @Override
+        public void onCompleted() {
+            view.hideProgress();
+        }
 
-            @Override
-            public void onNext(List<Photo> photos) {
-                view.setPhotos(photos);
-            }
-        };
+        @Override
+        public void onError(Throwable e) {
+            view.hideProgress();
+            view.showError(e.getMessage());
+        }
+
+        @Override
+        public void onNext(List<Photo> photos) {
+            view.hideProgress();
+            view.setPhotos(photos);
+        }
+
     }
+
 }

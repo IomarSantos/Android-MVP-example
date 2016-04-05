@@ -8,17 +8,15 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
 /**
- * Game Releases application.
+ * Flickr app built with RxJava, Dagger and MVP pattern.
  *
- * @author Mohammed Ali
  * @author Boyd Hogerheijde
- * @author Mitchell de Vries
  */
-public abstract class Interactor {
+public abstract class Interactor<T> {
 
     private Subscription subscription = Subscriptions.empty();
 
-    protected abstract Observable getObservable();
+    protected abstract Observable<T> getObservable();
 
     public void execute(Subscriber subscriber) {
         subscription = getObservable()
@@ -30,4 +28,5 @@ public abstract class Interactor {
     public void unsubscribe() {
         if (!subscription.isUnsubscribed()) subscription.unsubscribe();
     }
+
 }

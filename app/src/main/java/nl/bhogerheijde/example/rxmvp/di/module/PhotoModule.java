@@ -4,18 +4,16 @@ import com.squareup.picasso.Picasso;
 
 import dagger.Module;
 import dagger.Provides;
-import nl.bhogerheijde.example.rxmvp.di.PerActivity;
+import nl.bhogerheijde.example.rxmvp.di.ActivityScope;
 import nl.bhogerheijde.example.rxmvp.interactor.Interactor;
 import nl.bhogerheijde.example.rxmvp.interactor.LoadPhotoInteractor;
 import nl.bhogerheijde.example.rxmvp.presenter.PhotoPresenter;
 import nl.bhogerheijde.example.rxmvp.presenter.PhotoPresenterImpl;
 
 /**
- * Game Releases application.
+ * Flickr app built with RxJava, Dagger and MVP pattern.
  *
- * @author Mohammed Ali
  * @author Boyd Hogerheijde
- * @author Mitchell de Vries
  */
 @Module
 public class PhotoModule {
@@ -27,14 +25,15 @@ public class PhotoModule {
     }
 
     @Provides
-    @PerActivity
+    @ActivityScope
     PhotoPresenter providePhotoPresenter(Interactor interactor) {
         return new PhotoPresenterImpl(interactor);
     }
 
     @Provides
-    @PerActivity
+    @ActivityScope
     Interactor provideLoadPhotoInteractor(Picasso picasso) {
         return new LoadPhotoInteractor(url, picasso);
     }
+
 }

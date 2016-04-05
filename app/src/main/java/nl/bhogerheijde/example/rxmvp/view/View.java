@@ -1,11 +1,9 @@
 package nl.bhogerheijde.example.rxmvp.view;
 
 /**
- * Game Releases application.
+ * Flickr app built with RxJava, Dagger and MVP pattern.
  *
- * @author Mohammed Ali
  * @author Boyd Hogerheijde
- * @author Mitchell de Vries
  */
 public interface View {
 

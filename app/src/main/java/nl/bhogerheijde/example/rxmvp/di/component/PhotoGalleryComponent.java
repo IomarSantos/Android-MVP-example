@@ -2,19 +2,17 @@ package nl.bhogerheijde.example.rxmvp.di.component;
 
 import dagger.Subcomponent;
 import nl.bhogerheijde.example.rxmvp.activity.PhotoGalleryActivity;
-import nl.bhogerheijde.example.rxmvp.di.PerActivity;
+import nl.bhogerheijde.example.rxmvp.di.ActivityScope;
 import nl.bhogerheijde.example.rxmvp.di.module.PhotoGalleryModule;
 
 /**
- * Game Releases application.
+ * Flickr app built with RxJava, Dagger and MVP pattern.
  *
- * @author Mohammed Ali
  * @author Boyd Hogerheijde
- * @author Mitchell de Vries
  */
-@PerActivity
+@ActivityScope
 @Subcomponent(modules = PhotoGalleryModule.class)
-public interface PhotoGallerySubComponent {
+public interface PhotoGalleryComponent {
 
     void inject(PhotoGalleryActivity photoGalleryActivity);
 

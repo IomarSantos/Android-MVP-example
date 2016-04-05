@@ -12,9 +12,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.bhogerheijde.example.rxmvp.R;

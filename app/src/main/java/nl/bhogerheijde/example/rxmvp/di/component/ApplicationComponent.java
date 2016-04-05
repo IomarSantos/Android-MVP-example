@@ -9,18 +9,16 @@ import nl.bhogerheijde.example.rxmvp.di.module.PhotoGalleryModule;
 import nl.bhogerheijde.example.rxmvp.di.module.PhotoModule;
 
 /**
- * Game Releases application.
+ * Flickr app built with RxJava, Dagger and MVP pattern.
  *
- * @author Mohammed Ali
  * @author Boyd Hogerheijde
- * @author Mitchell de Vries
  */
 @Singleton
 @Component(modules = {AppModule.class, NetModule.class})
 public interface ApplicationComponent {
 
-    PhotoSubComponent plus(PhotoModule photoModule);
+    PhotoComponent plus(PhotoModule photoModule);
 
-    PhotoGallerySubComponent plus(PhotoGalleryModule photoGalleryModule);
+    PhotoGalleryComponent plus(PhotoGalleryModule photoGalleryModule);
 
 }

@@ -18,7 +18,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.bhogerheijde.example.rxmvp.FlickrApp;
 import nl.bhogerheijde.example.rxmvp.R;
-import nl.bhogerheijde.example.rxmvp.di.module.PhotoModule;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
 import nl.bhogerheijde.example.rxmvp.presenter.PhotoPresenter;
 import nl.bhogerheijde.example.rxmvp.view.PhotoView;
@@ -56,13 +55,11 @@ public class PhotoActivity extends AppCompatActivity implements PhotoView {
         setContentView(R.layout.activity_photo);
         ButterKnife.bind(this);
 
+        setActionBar();
+
         Photo photo = (Photo) getIntent().getSerializableExtra(EXTRA_PHOTO);
 
-        ((FlickrApp) getApplication()).getApplicationComponent()
-                .plus(new PhotoModule(photo.getUrlLarge()))
-                .inject(this);
-
-        setActionBar();
+        ((FlickrApp) getApplication()).createPhotoComponent(photo.getUrlLarge()).inject(this);
 
         presenter.setView(this);
         presenter.loadImage(photo);
@@ -110,5 +107,6 @@ public class PhotoActivity extends AppCompatActivity implements PhotoView {
     protected void onDestroy() {
         super.onDestroy();
         presenter.finish();
+        ((FlickrApp) getApplication()).releasePhotoComponent();
     }
 }

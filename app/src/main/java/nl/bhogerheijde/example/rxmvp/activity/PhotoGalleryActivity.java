@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
 import nl.bhogerheijde.example.rxmvp.FlickrApp;
 import nl.bhogerheijde.example.rxmvp.R;
 import nl.bhogerheijde.example.rxmvp.adapter.PhotoAdapter;
-import nl.bhogerheijde.example.rxmvp.di.module.PhotoGalleryModule;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
 import nl.bhogerheijde.example.rxmvp.presenter.PhotoGalleryPresenter;
 import nl.bhogerheijde.example.rxmvp.view.PhotoGalleryView;
@@ -51,9 +50,7 @@ public class PhotoGalleryActivity extends AppCompatActivity
         setContentView(R.layout.activity_photo_gallery);
         ButterKnife.bind(this);
 
-        ((FlickrApp) getApplication()).getApplicationComponent()
-                .plus(new PhotoGalleryModule())
-                .inject(this);
+        ((FlickrApp) getApplication()).createPhotoGalleryComponent().inject(this);
 
         adapter.setListener(this);
 
@@ -123,6 +120,7 @@ public class PhotoGalleryActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         presenter.finish();
+        ((FlickrApp) getApplication()).releasePhotoGalleryComponent();
     }
 
 }
