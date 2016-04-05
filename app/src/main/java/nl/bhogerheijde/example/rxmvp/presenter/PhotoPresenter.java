@@ -1,13 +1,14 @@
-package nl.bhogerheijde.example.rxmvp.ui.photo;
+package nl.bhogerheijde.example.rxmvp.presenter;
 
 import nl.bhogerheijde.example.rxmvp.model.Photo;
+import nl.bhogerheijde.example.rxmvp.view.PhotoView;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
  *
  * @author Boyd Hogerheijde
  */
-public interface PhotoPresenter {
+public interface PhotoPresenter extends Presenter {
 
     void loadImage(Photo photo);
 

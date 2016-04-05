@@ -1,11 +1,13 @@
-package nl.bhogerheijde.example.rxmvp.ui.photo;
+package nl.bhogerheijde.example.rxmvp.presenter;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
+import nl.bhogerheijde.example.rxmvp.interactor.Interactor;
 import nl.bhogerheijde.example.rxmvp.interactor.LoadPhotoInteractor;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
-import rx.Observable;
+import nl.bhogerheijde.example.rxmvp.view.PhotoView;
+import nl.bhogerheijde.example.rxmvp.view.View;
 import rx.Subscriber;
 
 /**
@@ -13,25 +15,29 @@ import rx.Subscriber;
  *
  * @author Boyd Hogerheijde
  */
-public class PhotoPresenterImpl implements PhotoPresenter, OnLoadPhotoListener {
+public class PhotoPresenterImpl implements PhotoPresenter {
 
     private PhotoView view;
     private LoadPhotoInteractor interactor;
 
-    public PhotoPresenterImpl(PhotoView view, LoadPhotoInteractor interactor) {
-        this.view = view;
-        this.interactor = interactor;
+    public PhotoPresenterImpl(Interactor interactor) {
+        this.interactor = (LoadPhotoInteractor) interactor;
+    }
+
+    @Override
+    public void setView(@NonNull View view) {
+        this.view = (PhotoView) view;
+    }
+
+    @Override
+    public void finish() {
+        interactor.unsubscribe();
     }
 
     @Override
     public void loadImage(Photo photo) {
         view.showProgress();
-        interactor.loadPhoto(photo.getUrlLarge(), this);
-    }
-
-    @Override
-    public void onLoadPhoto(Observable<Bitmap> bitmapObservable) {
-        bitmapObservable.subscribe(getSubscriber());
+        interactor.execute(getSubscriber());
     }
 
     @NonNull
@@ -45,7 +51,7 @@ public class PhotoPresenterImpl implements PhotoPresenter, OnLoadPhotoListener {
 
             @Override
             public void onCompleted() {
-                view.hideProgress();
+                if (view != null) view.hideProgress();
             }
 
             @Override

@@ -1,34 +1,34 @@
-package nl.bhogerheijde.example.rxmvp.ui.photo;
+package nl.bhogerheijde.example.rxmvp.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Arrays;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import nl.bhogerheijde.example.rxmvp.FlickrApp;
 import nl.bhogerheijde.example.rxmvp.R;
+import nl.bhogerheijde.example.rxmvp.di.module.PhotoModule;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
-import nl.bhogerheijde.example.rxmvp.ui.BaseActivity;
+import nl.bhogerheijde.example.rxmvp.presenter.PhotoPresenter;
+import nl.bhogerheijde.example.rxmvp.view.PhotoView;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
  *
  * @author Boyd Hogerheijde
  */
-public class PhotoActivity extends BaseActivity implements PhotoView {
+public class PhotoActivity extends AppCompatActivity implements PhotoView {
 
     private static final String EXTRA_PHOTO = "nl.bhogerheijde.example.rxmvp.extra_photo";
 
@@ -44,8 +44,6 @@ public class PhotoActivity extends BaseActivity implements PhotoView {
     @Inject
     PhotoPresenter presenter;
 
-    private Photo photo;
-
     public static Intent newIntent(Context context, Photo photo) {
         Intent intent = new Intent(context, PhotoActivity.class);
         intent.putExtra(EXTRA_PHOTO, photo);
@@ -58,10 +56,15 @@ public class PhotoActivity extends BaseActivity implements PhotoView {
         setContentView(R.layout.activity_photo);
         ButterKnife.bind(this);
 
-        photo = (Photo) getIntent().getSerializableExtra(EXTRA_PHOTO);
+        Photo photo = (Photo) getIntent().getSerializableExtra(EXTRA_PHOTO);
+
+        ((FlickrApp) getApplication()).getApplicationComponent()
+                .plus(new PhotoModule(photo.getUrlLarge()))
+                .inject(this);
 
         setActionBar();
 
+        presenter.setView(this);
         presenter.loadImage(photo);
     }
 
@@ -79,11 +82,6 @@ public class PhotoActivity extends BaseActivity implements PhotoView {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public List<Object> getModules() {
-        return Arrays.asList(new PhotoModule(this));
     }
 
     @Override
@@ -108,4 +106,9 @@ public class PhotoActivity extends BaseActivity implements PhotoView {
         photoImageView.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.finish();
+    }
 }

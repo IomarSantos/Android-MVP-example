@@ -1,4 +1,4 @@
-package nl.bhogerheijde.example.rxmvp.ui.photogallery;
+package nl.bhogerheijde.example.rxmvp.adapter;
 
 import android.app.Application;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +11,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,17 +30,26 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder>
     private Picasso picasso;
     private List<Photo> photos;
     private Application application;
-    private PhotoGalleryPresenter presenter;
+    private OnPhotoClickListener listener;
 
-    public PhotoAdapter(Picasso picasso, PhotoGalleryPresenter presenter, Application application) {
+    public interface OnPhotoClickListener {
+
+        void onPhotoClicked(Photo photo);
+    }
+
+    public PhotoAdapter(Picasso picasso, Application application) {
         this.picasso = picasso;
         this.photos = new ArrayList<>();
-        this.presenter = presenter;
         this.application = application;
     }
 
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
+        notifyDataSetChanged();
+    }
+
+    public void setListener(OnPhotoClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -76,7 +88,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder>
 
         @Override
         public void onClick(View v) {
-            presenter.onPhotoClicked(photo);
+            listener.onPhotoClicked(photo);
         }
     }
 

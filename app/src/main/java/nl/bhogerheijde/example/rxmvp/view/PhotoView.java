@@ -1,4 +1,4 @@
-package nl.bhogerheijde.example.rxmvp.ui.photo;
+package nl.bhogerheijde.example.rxmvp.view;
 
 import android.graphics.Bitmap;
 
@@ -7,14 +7,8 @@ import android.graphics.Bitmap;
  *
  * @author Boyd Hogerheijde
  */
-public interface PhotoView {
-
-    void showProgress();
+public interface PhotoView extends View {
 
     void setPhoto(Bitmap photoBitmap);
-
-    void showError(String message);
-
-    void hideProgress();
 
 }

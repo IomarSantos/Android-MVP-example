@@ -1,4 +1,4 @@
-package nl.bhogerheijde.example.rxmvp.ui.photogallery;
+package nl.bhogerheijde.example.rxmvp.view;
 
 import java.util.List;
 
@@ -9,16 +9,10 @@ import nl.bhogerheijde.example.rxmvp.model.Photo;
  *
  * @author Boyd Hogerheijde
  */
-public interface PhotoGalleryView {
-
-    void showProgress();
+public interface PhotoGalleryView extends View {
 
     void setPhotos(List<Photo> photos);
 
     void openPhoto(Photo photo);
-
-    void showError(Throwable e);
-
-    void hideProgress();
 
 }

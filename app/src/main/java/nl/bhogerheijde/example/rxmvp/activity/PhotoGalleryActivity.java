@@ -1,8 +1,9 @@
-package nl.bhogerheijde.example.rxmvp.ui.photogallery;
+package nl.bhogerheijde.example.rxmvp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -10,24 +11,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import nl.bhogerheijde.example.rxmvp.FlickrApp;
 import nl.bhogerheijde.example.rxmvp.R;
+import nl.bhogerheijde.example.rxmvp.adapter.PhotoAdapter;
+import nl.bhogerheijde.example.rxmvp.di.module.PhotoGalleryModule;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
-import nl.bhogerheijde.example.rxmvp.ui.BaseActivity;
-import nl.bhogerheijde.example.rxmvp.ui.photo.PhotoActivity;
+import nl.bhogerheijde.example.rxmvp.presenter.PhotoGalleryPresenter;
+import nl.bhogerheijde.example.rxmvp.view.PhotoGalleryView;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
  *
  * @author Boyd Hogerheijde
  */
-public class PhotoGalleryActivity extends BaseActivity implements PhotoGalleryView {
+public class PhotoGalleryActivity extends AppCompatActivity
+        implements PhotoGalleryView, PhotoAdapter.OnPhotoClickListener {
 
     @Bind(R.id.progress_bar)
     ProgressBar progressBar;
@@ -47,9 +51,16 @@ public class PhotoGalleryActivity extends BaseActivity implements PhotoGalleryVi
         setContentView(R.layout.activity_photo_gallery);
         ButterKnife.bind(this);
 
+        ((FlickrApp) getApplication()).getApplicationComponent()
+                .plus(new PhotoGalleryModule())
+                .inject(this);
+
+        adapter.setListener(this);
+
         photoRecycler.setLayoutManager(new GridLayoutManager(this, 3));
         photoRecycler.setAdapter(adapter);
 
+        presenter.setView(this);
         presenter.loadImages();
     }
 
@@ -71,11 +82,6 @@ public class PhotoGalleryActivity extends BaseActivity implements PhotoGalleryVi
     }
 
     @Override
-    public List<Object> getModules() {
-        return Arrays.asList(new PhotoGalleryModule(this));
-    }
-
-    @Override
     public void showProgress() {
         photoRecycler.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
@@ -84,7 +90,6 @@ public class PhotoGalleryActivity extends BaseActivity implements PhotoGalleryVi
     @Override
     public void setPhotos(List<Photo> photos) {
         adapter.setPhotos(photos);
-        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -94,10 +99,10 @@ public class PhotoGalleryActivity extends BaseActivity implements PhotoGalleryVi
     }
 
     @Override
-    public void showError(Throwable e) {
+    public void showError(String errorMessage) {
         new AlertDialog.Builder(this)
                 .setTitle("Error!")
-                .setMessage(e.getMessage())
+                .setMessage(errorMessage)
                 .setPositiveButton(android.R.string.ok, null)
                 .create()
                 .show();
@@ -107,6 +112,17 @@ public class PhotoGalleryActivity extends BaseActivity implements PhotoGalleryVi
     public void hideProgress() {
         photoRecycler.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onPhotoClicked(Photo photo) {
+        presenter.onPhotoClicked(photo);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.finish();
     }
 
 }

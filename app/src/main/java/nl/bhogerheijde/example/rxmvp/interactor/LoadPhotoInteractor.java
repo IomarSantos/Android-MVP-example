@@ -1,14 +1,36 @@
 package nl.bhogerheijde.example.rxmvp.interactor;
 
-import nl.bhogerheijde.example.rxmvp.ui.photo.OnLoadPhotoListener;
+import android.support.annotation.NonNull;
+
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+
+import rx.Observable;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
  *
  * @author Boyd Hogerheijde
  */
-public interface LoadPhotoInteractor {
+public class LoadPhotoInteractor extends Interactor {
 
-    void loadPhoto(String url, OnLoadPhotoListener listener);
+    private String url;
+    private Picasso picasso;
 
+    public LoadPhotoInteractor(String url, Picasso picasso) {
+        this.url = url;
+        this.picasso = picasso;
+    }
+
+    @Override
+    protected Observable getObservable() {
+        return Observable.create(subscriber -> {
+            try {
+                subscriber.onNext(picasso.load(url).get());
+            } catch (IOException e) {
+                subscriber.onError(e);
+            }
+        });
+    }
 }

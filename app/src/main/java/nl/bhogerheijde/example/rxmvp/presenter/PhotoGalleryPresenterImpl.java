@@ -1,10 +1,13 @@
-package nl.bhogerheijde.example.rxmvp.ui.photogallery;
+package nl.bhogerheijde.example.rxmvp.presenter;
+
+import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import nl.bhogerheijde.example.rxmvp.interactor.FetchFlickrInteractor;
+import nl.bhogerheijde.example.rxmvp.interactor.Interactor;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
-import rx.Observable;
+import nl.bhogerheijde.example.rxmvp.view.PhotoGalleryView;
+import nl.bhogerheijde.example.rxmvp.view.View;
 import rx.Subscriber;
 
 /**
@@ -12,30 +15,33 @@ import rx.Subscriber;
  *
  * @author Boyd Hogerheijde
  */
-public class PhotoGalleryPresenterImpl implements PhotoGalleryPresenter, OnFetchFlickrListener {
+public class PhotoGalleryPresenterImpl implements PhotoGalleryPresenter {
 
     private PhotoGalleryView view;
-    private FetchFlickrInteractor interactor;
+    private Interactor interactor;
 
-    public PhotoGalleryPresenterImpl(PhotoGalleryView view, FetchFlickrInteractor interactor) {
-        this.view = view;
+    public PhotoGalleryPresenterImpl(Interactor interactor) {
         this.interactor = interactor;
     }
 
     @Override
     public void loadImages() {
-        interactor.fetchFlickr(this);
+        interactor.execute(getSubscriber());
+    }
+
+    @Override
+    public void setView(@NonNull View view) {
+        this.view = (PhotoGalleryView) view;
+    }
+
+    @Override
+    public void finish() {
+        interactor.unsubscribe();
     }
 
     @Override
     public void onPhotoClicked(Photo photo) {
-        // do something with photo.
         view.openPhoto(photo);
-    }
-
-    @Override
-    public void onFetchFlickr(Observable<List<Photo>> flickrObservable) {
-        flickrObservable.subscribe(getSubscriber());
     }
 
     private Subscriber<List<Photo>> getSubscriber() {
@@ -54,7 +60,7 @@ public class PhotoGalleryPresenterImpl implements PhotoGalleryPresenter, OnFetch
             @Override
             public void onError(Throwable e) {
                 view.hideProgress();
-                view.showError(e);
+                view.showError(e.getMessage());
             }
 
             @Override
