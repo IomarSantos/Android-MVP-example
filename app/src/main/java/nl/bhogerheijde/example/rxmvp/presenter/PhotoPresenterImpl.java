@@ -20,13 +20,9 @@ public class PhotoPresenterImpl implements PhotoPresenter {
     private PhotoView view;
     private LoadPhotoInteractor interactor;
 
-    public PhotoPresenterImpl(Interactor interactor) {
+    public PhotoPresenterImpl(PhotoView view, Interactor interactor) {
+        this.view = view;
         this.interactor = (LoadPhotoInteractor) interactor;
-    }
-
-    @Override
-    public void setView(@NonNull View view) {
-        this.view = (PhotoView) view;
     }
 
     @Override

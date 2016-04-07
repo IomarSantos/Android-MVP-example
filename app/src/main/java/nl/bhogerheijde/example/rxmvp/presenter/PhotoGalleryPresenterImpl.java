@@ -1,7 +1,5 @@
 package nl.bhogerheijde.example.rxmvp.presenter;
 
-import android.support.annotation.NonNull;
-
 import java.util.List;
 
 import nl.bhogerheijde.example.rxmvp.interactor.DefaultSubscriber;
@@ -20,7 +18,8 @@ public class PhotoGalleryPresenterImpl implements PhotoGalleryPresenter {
     private PhotoGalleryView view;
     private Interactor interactor;
 
-    public PhotoGalleryPresenterImpl(Interactor interactor) {
+    public PhotoGalleryPresenterImpl(PhotoGalleryView view, Interactor interactor) {
+        this.view = view;
         this.interactor = interactor;
     }
 
@@ -30,18 +29,13 @@ public class PhotoGalleryPresenterImpl implements PhotoGalleryPresenter {
     }
 
     @Override
-    public void setView(@NonNull View view) {
-        this.view = (PhotoGalleryView) view;
-    }
-
-    @Override
     public void finish() {
         interactor.unsubscribe();
     }
 
     @Override
     public void onPhotoClicked(Photo photo) {
-        view.openPhoto(photo);
+        view.showPhoto(photo);
     }
 
     private final class PhotoGallerySubscriber extends DefaultSubscriber<List<Photo>> {

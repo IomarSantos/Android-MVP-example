@@ -59,9 +59,8 @@ public class PhotoActivity extends AppCompatActivity implements PhotoView {
 
         Photo photo = (Photo) getIntent().getSerializableExtra(EXTRA_PHOTO);
 
-        ((FlickrApp) getApplication()).createPhotoComponent(photo.getUrlLarge()).inject(this);
+        ((FlickrApp) getApplication()).createPhotoComponent(this, photo.getUrlLarge()).inject(this);
 
-        presenter.setView(this);
         presenter.loadImage(photo);
     }
 

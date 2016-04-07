@@ -13,6 +13,7 @@ import nl.bhogerheijde.example.rxmvp.interactor.Interactor;
 import nl.bhogerheijde.example.rxmvp.network.FlickrApi;
 import nl.bhogerheijde.example.rxmvp.presenter.PhotoGalleryPresenter;
 import nl.bhogerheijde.example.rxmvp.presenter.PhotoGalleryPresenterImpl;
+import nl.bhogerheijde.example.rxmvp.view.PhotoGalleryView;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
@@ -21,6 +22,12 @@ import nl.bhogerheijde.example.rxmvp.presenter.PhotoGalleryPresenterImpl;
  */
 @Module
 public class PhotoGalleryModule {
+
+    private PhotoGalleryView view;
+
+    public PhotoGalleryModule(PhotoGalleryView view) {
+        this.view = view;
+    }
 
     @Provides
     @ActivityScope
@@ -37,7 +44,7 @@ public class PhotoGalleryModule {
     @Provides
     @ActivityScope
     PhotoGalleryPresenter providePhotoGalleryPresenter(Interactor interactor) {
-        return new PhotoGalleryPresenterImpl(interactor);
+        return new PhotoGalleryPresenterImpl(view, interactor);
     }
 
 }

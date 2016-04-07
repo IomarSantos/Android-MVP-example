@@ -13,6 +13,6 @@ public interface PhotoGalleryView extends View {
 
     void setPhotos(List<Photo> photos);
 
-    void openPhoto(Photo photo);
+    void showPhoto(Photo photo);
 
 }

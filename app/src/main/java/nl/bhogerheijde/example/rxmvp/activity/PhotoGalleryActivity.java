@@ -50,14 +50,13 @@ public class PhotoGalleryActivity extends AppCompatActivity
         setContentView(R.layout.activity_photo_gallery);
         ButterKnife.bind(this);
 
-        ((FlickrApp) getApplication()).createPhotoGalleryComponent().inject(this);
+        ((FlickrApp) getApplication()).createPhotoGalleryComponent(this).inject(this);
 
         adapter.setListener(this);
 
         photoRecycler.setLayoutManager(new GridLayoutManager(this, 3));
         photoRecycler.setAdapter(adapter);
 
-        presenter.setView(this);
         presenter.loadImages();
     }
 
@@ -90,7 +89,7 @@ public class PhotoGalleryActivity extends AppCompatActivity
     }
 
     @Override
-    public void openPhoto(Photo photo) {
+    public void showPhoto(Photo photo) {
         Intent photoIntent = PhotoActivity.newIntent(this, photo);
         startActivity(photoIntent);
     }

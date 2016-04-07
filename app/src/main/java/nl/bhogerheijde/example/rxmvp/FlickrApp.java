@@ -10,6 +10,8 @@ import nl.bhogerheijde.example.rxmvp.di.module.AppModule;
 import nl.bhogerheijde.example.rxmvp.di.module.NetModule;
 import nl.bhogerheijde.example.rxmvp.di.module.PhotoGalleryModule;
 import nl.bhogerheijde.example.rxmvp.di.module.PhotoModule;
+import nl.bhogerheijde.example.rxmvp.view.PhotoGalleryView;
+import nl.bhogerheijde.example.rxmvp.view.PhotoView;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
@@ -31,13 +33,13 @@ public class FlickrApp extends Application {
                 .build();
     }
 
-    public PhotoGalleryComponent createPhotoGalleryComponent() {
-        photoGalleryComponent = applicationComponent.plus(new PhotoGalleryModule());
+    public PhotoGalleryComponent createPhotoGalleryComponent(PhotoGalleryView view) {
+        photoGalleryComponent = applicationComponent.plus(new PhotoGalleryModule(view));
         return photoGalleryComponent;
     }
 
-    public PhotoComponent createPhotoComponent(String url) {
-        photoComponent = applicationComponent.plus(new PhotoModule(url));
+    public PhotoComponent createPhotoComponent(PhotoView view, String url) {
+        photoComponent = applicationComponent.plus(new PhotoModule(view, url));
         return photoComponent;
     }
 
