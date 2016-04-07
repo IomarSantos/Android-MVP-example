@@ -2,11 +2,10 @@ package nl.bhogerheijde.example.rxmvp.presenter;
 
 import java.util.List;
 
-import nl.bhogerheijde.example.rxmvp.interactor.DefaultSubscriber;
 import nl.bhogerheijde.example.rxmvp.interactor.Interactor;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
 import nl.bhogerheijde.example.rxmvp.view.PhotoGalleryView;
-import nl.bhogerheijde.example.rxmvp.view.View;
+import rx.Subscriber;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
@@ -38,7 +37,7 @@ public class PhotoGalleryPresenterImpl implements PhotoGalleryPresenter {
         view.showPhoto(photo);
     }
 
-    private final class PhotoGallerySubscriber extends DefaultSubscriber<List<Photo>> {
+    private final class PhotoGallerySubscriber extends Subscriber<List<Photo>> {
 
         @Override
         public void onStart() {

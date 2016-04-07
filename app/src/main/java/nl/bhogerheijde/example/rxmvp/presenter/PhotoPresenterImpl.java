@@ -1,14 +1,12 @@
 package nl.bhogerheijde.example.rxmvp.presenter;
 
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
 
-import nl.bhogerheijde.example.rxmvp.interactor.DefaultSubscriber;
 import nl.bhogerheijde.example.rxmvp.interactor.Interactor;
 import nl.bhogerheijde.example.rxmvp.interactor.LoadPhotoInteractor;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
 import nl.bhogerheijde.example.rxmvp.view.PhotoView;
-import nl.bhogerheijde.example.rxmvp.view.View;
+import rx.Subscriber;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.
@@ -36,7 +34,7 @@ public class PhotoPresenterImpl implements PhotoPresenter {
         interactor.execute(new PhotoSubscriber());
     }
 
-    private final class PhotoSubscriber extends DefaultSubscriber<Bitmap> {
+    private final class PhotoSubscriber extends Subscriber<Bitmap> {
 
         @Override
         public void onStart() {
