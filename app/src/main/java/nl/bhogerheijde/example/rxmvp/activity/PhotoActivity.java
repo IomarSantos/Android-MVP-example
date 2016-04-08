@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -31,17 +32,11 @@ public class PhotoActivity extends AppCompatActivity implements PhotoView {
 
     private static final String EXTRA_PHOTO = "nl.bhogerheijde.example.rxmvp.extra_photo";
 
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.photo_image_view) ImageView photoImageView;
+    @Bind(R.id.progress_bar) ProgressBar progressBar;
 
-    @Bind(R.id.photo_image_view)
-    ImageView photoImageView;
-
-    @Bind(R.id.progress_bar)
-    ProgressBar progressBar;
-
-    @Inject
-    PhotoPresenter presenter;
+    @Inject PhotoPresenter presenter;
 
     public static Intent newIntent(Context context, Photo photo) {
         Intent intent = new Intent(context, PhotoActivity.class);
@@ -66,7 +61,11 @@ public class PhotoActivity extends AppCompatActivity implements PhotoView {
 
     private void setActionBar() {
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
     }
 
     @Override
@@ -108,4 +107,5 @@ public class PhotoActivity extends AppCompatActivity implements PhotoView {
         presenter.finish();
         ((FlickrApp) getApplication()).releasePhotoComponent();
     }
+
 }

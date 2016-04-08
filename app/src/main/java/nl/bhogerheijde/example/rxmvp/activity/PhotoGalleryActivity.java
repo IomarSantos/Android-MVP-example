@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import nl.bhogerheijde.example.rxmvp.FlickrApp;
 import nl.bhogerheijde.example.rxmvp.R;
 import nl.bhogerheijde.example.rxmvp.adapter.PhotoAdapter;
+import nl.bhogerheijde.example.rxmvp.adapter.PhotoAdapter.OnPhotoClickListener;
 import nl.bhogerheijde.example.rxmvp.model.Photo;
 import nl.bhogerheijde.example.rxmvp.presenter.PhotoGalleryPresenter;
 import nl.bhogerheijde.example.rxmvp.view.PhotoGalleryView;
@@ -29,20 +30,13 @@ import nl.bhogerheijde.example.rxmvp.view.PhotoGalleryView;
  *
  * @author Boyd Hogerheijde
  */
-public class PhotoGalleryActivity extends AppCompatActivity
-        implements PhotoGalleryView, PhotoAdapter.OnPhotoClickListener {
+public class PhotoGalleryActivity extends AppCompatActivity implements PhotoGalleryView, OnPhotoClickListener {
 
-    @Bind(R.id.progress_bar)
-    ProgressBar progressBar;
+    @Bind(R.id.progress_bar) ProgressBar progressBar;
+    @Bind(R.id.photo_recycler) RecyclerView photoRecycler;
 
-    @Bind(R.id.photo_recycler)
-    RecyclerView photoRecycler;
-
-    @Inject
-    PhotoGalleryPresenter presenter;
-
-    @Inject
-    PhotoAdapter adapter;
+    @Inject PhotoGalleryPresenter presenter;
+    @Inject PhotoAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

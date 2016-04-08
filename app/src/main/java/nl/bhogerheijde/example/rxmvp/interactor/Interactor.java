@@ -18,7 +18,7 @@ public abstract class Interactor<T> {
 
     protected abstract Observable<T> getObservable();
 
-    public void execute(Subscriber subscriber) {
+    public void execute(Subscriber<T> subscriber) {
         subscription = getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

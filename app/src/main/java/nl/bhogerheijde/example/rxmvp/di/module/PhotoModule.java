@@ -10,7 +10,6 @@ import nl.bhogerheijde.example.rxmvp.interactor.LoadPhotoInteractor;
 import nl.bhogerheijde.example.rxmvp.presenter.PhotoPresenter;
 import nl.bhogerheijde.example.rxmvp.presenter.PhotoPresenterImpl;
 import nl.bhogerheijde.example.rxmvp.view.PhotoView;
-import nl.bhogerheijde.example.rxmvp.view.View;
 
 /**
  * Flickr app built with RxJava, Dagger and MVP pattern.

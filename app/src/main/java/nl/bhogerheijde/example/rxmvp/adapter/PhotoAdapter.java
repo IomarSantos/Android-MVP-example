@@ -51,7 +51,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder>
 
     @Override
     public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View photoItemView = LayoutInflater.from(application).inflate(R.layout.grid_item_photo, parent, false);
+        View photoItemView = LayoutInflater.from(application).inflate(R.layout.list_item_photo, parent, false);
         return new PhotoHolder(photoItemView);
     }
 
@@ -67,8 +67,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder>
 
     class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.photo_image_view)
-        ImageView photoView;
+        @Bind(R.id.photo_image_view) ImageView photoView;
 
         private Photo photo;
 
