@@ -16,17 +16,17 @@ import rx.schedulers.Schedulers;
  */
 public class FetchFlickrInteractor extends Interactor<List<Photo>> {
 
-    private static final String API_KEY = "e74912fa141cc1590d63e7642ab174ed";
-
     private FlickrApi api;
+    private String key;
 
-    public FetchFlickrInteractor(FlickrApi api) {
+    public FetchFlickrInteractor(FlickrApi api, String key) {
         this.api = api;
+        this.key = key;
     }
 
     @Override
     protected Observable<List<Photo>> getObservable() {
-        return api.getRecentPhotos("flickr.photos.getRecent", API_KEY, "json", "1", 500, "url_s, url_k")
+        return api.getRecentPhotos("flickr.photos.getRecent", key, "json", "1", 500, "url_s, url_k")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(this::getPhotos)

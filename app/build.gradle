@@ -27,16 +27,27 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+
+    // Android dependencies
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
+
+    // Rx dependencies
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.2'
+
+    // Network dependencies
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // Dagger dependencies
     apt 'com.google.dagger:dagger-compiler:2.1'
     compile 'com.google.dagger:dagger:2.1'
     provided 'javax.annotation:jsr250-api:1.0'
+
+    // Other view related dependencies
+    compile 'com.jakewharton:butterknife:7.0.1'
+
 }

@@ -4,7 +4,7 @@ import com.squareup.picasso.Picasso;
 
 import dagger.Module;
 import dagger.Provides;
-import nl.bhogerheijde.example.rxmvp.di.ActivityScope;
+import nl.bhogerheijde.example.rxmvp.di.PerActivity;
 import nl.bhogerheijde.example.rxmvp.interactor.Interactor;
 import nl.bhogerheijde.example.rxmvp.interactor.LoadPhotoInteractor;
 import nl.bhogerheijde.example.rxmvp.presenter.PhotoPresenter;
@@ -28,13 +28,13 @@ public class PhotoModule {
     }
 
     @Provides
-    @ActivityScope
+    @PerActivity
     PhotoPresenter providePhotoPresenter(Interactor interactor) {
         return new PhotoPresenterImpl(view, interactor);
     }
 
     @Provides
-    @ActivityScope
+    @PerActivity
     Interactor provideLoadPhotoInteractor(Picasso picasso) {
         return new LoadPhotoInteractor(url, picasso);
     }

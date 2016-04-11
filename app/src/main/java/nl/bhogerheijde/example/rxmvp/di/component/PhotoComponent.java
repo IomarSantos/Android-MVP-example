@@ -2,7 +2,7 @@ package nl.bhogerheijde.example.rxmvp.di.component;
 
 import dagger.Subcomponent;
 import nl.bhogerheijde.example.rxmvp.activity.PhotoActivity;
-import nl.bhogerheijde.example.rxmvp.di.ActivityScope;
+import nl.bhogerheijde.example.rxmvp.di.PerActivity;
 import nl.bhogerheijde.example.rxmvp.di.module.PhotoModule;
 
 /**
@@ -10,7 +10,7 @@ import nl.bhogerheijde.example.rxmvp.di.module.PhotoModule;
  *
  * @author Boyd Hogerheijde
  */
-@ActivityScope
+@PerActivity
 @Subcomponent(modules = PhotoModule.class)
 public interface PhotoComponent {
 

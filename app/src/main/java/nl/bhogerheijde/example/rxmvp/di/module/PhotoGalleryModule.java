@@ -4,10 +4,12 @@ import android.app.Application;
 
 import com.squareup.picasso.Picasso;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
 import nl.bhogerheijde.example.rxmvp.adapter.PhotoAdapter;
-import nl.bhogerheijde.example.rxmvp.di.ActivityScope;
+import nl.bhogerheijde.example.rxmvp.di.PerActivity;
 import nl.bhogerheijde.example.rxmvp.interactor.FetchFlickrInteractor;
 import nl.bhogerheijde.example.rxmvp.interactor.Interactor;
 import nl.bhogerheijde.example.rxmvp.network.FlickrApi;
@@ -30,19 +32,19 @@ public class PhotoGalleryModule {
     }
 
     @Provides
-    @ActivityScope
+    @PerActivity
     PhotoAdapter providePhotoAdapter(Picasso picasso, Application application) {
         return new PhotoAdapter(picasso, application);
     }
 
     @Provides
-    @ActivityScope
-    Interactor provideFetchPhotosInteractor(FlickrApi api) {
-        return new FetchFlickrInteractor(api);
+    @PerActivity
+    Interactor provideFetchPhotosInteractor(FlickrApi api, @Named("api_key") String key) {
+        return new FetchFlickrInteractor(api, key);
     }
 
     @Provides
-    @ActivityScope
+    @PerActivity
     PhotoGalleryPresenter providePhotoGalleryPresenter(Interactor interactor) {
         return new PhotoGalleryPresenterImpl(view, interactor);
     }

@@ -67,7 +67,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder>
 
     class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.photo_image_view) ImageView photoView;
+        @Bind(R.id.photo_image_view)
+        ImageView photoView;
 
         private Photo photo;
 
