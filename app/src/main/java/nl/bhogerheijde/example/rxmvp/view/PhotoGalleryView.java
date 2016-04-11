@@ -9,7 +9,7 @@ import nl.bhogerheijde.example.rxmvp.model.Photo;
  *
  * @author Boyd Hogerheijde
  */
-public interface PhotoGalleryView extends View {
+public interface PhotoGalleryView extends BaseView {
 
     void setPhotos(List<Photo> photos);
 

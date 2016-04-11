@@ -5,7 +5,7 @@ package nl.bhogerheijde.example.rxmvp.view;
  *
  * @author Boyd Hogerheijde
  */
-public interface View {
+public interface BaseView {
 
     void showProgress();
 

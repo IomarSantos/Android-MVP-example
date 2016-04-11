@@ -7,7 +7,7 @@ import android.graphics.Bitmap;
  *
  * @author Boyd Hogerheijde
  */
-public interface PhotoView extends View {
+public interface PhotoView extends BaseView {
 
     void setPhoto(Bitmap photoBitmap);
 

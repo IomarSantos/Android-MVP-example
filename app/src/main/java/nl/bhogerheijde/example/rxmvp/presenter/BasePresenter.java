@@ -5,7 +5,7 @@ package nl.bhogerheijde.example.rxmvp.presenter;
  *
  * @author Boyd Hogerheijde
  */
-public interface Presenter {
+public interface BasePresenter {
 
     void finish();
 

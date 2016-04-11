@@ -7,7 +7,7 @@ import nl.bhogerheijde.example.rxmvp.model.Photo;
  *
  * @author Boyd Hogerheijde
  */
-public interface PhotoPresenter extends Presenter {
+public interface PhotoPresenter extends BasePresenter {
 
     void loadImage(Photo photo);
 
